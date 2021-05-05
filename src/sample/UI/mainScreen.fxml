@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<TabPane fx:id="TPTabPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="750.0" tabClosingPolicy="UNAVAILABLE" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.controllers.MainScreenController">
+  <tabs>
+    <Tab fx:id="TSales" text="Продажи">
+        <content>
+            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                <children>
+                    <TableView fx:id="TVSalesTable" editable="true" layoutX="70.0" layoutY="170.0" prefHeight="378.0" prefWidth="579.0">
+                        <columns>
+                            <TableColumn fx:id="TCSaleName" prefWidth="221.39999103546143" text="Наименование" />
+                            <TableColumn fx:id="TCSaleAmount" minWidth="5.79998779296875" prefWidth="90.19999694824219" text="Цена" />
+                            <TableColumn fx:id="TCSaleQuantity" prefWidth="81.80001831054688" text="Количество" />
+                            <TableColumn fx:id="TCSaleDate" minWidth="2.4000244140625" prefWidth="145.20001220703125" text="Дата продажи" />
+                        </columns>
+                    </TableView>
+                    <Button layoutX="500.0" layoutY="66.0" mnemonicParsing="false" onAction="#onSalesActionClicked" prefHeight="36.0" prefWidth="97.0" style="-fx-background-radius: 15px;" text="Выполнить" />
+                    <Button fx:id="BAddSale" layoutX="624.0" layoutY="66.0" mnemonicParsing="false" onAction="#onAddNewSaleClicked" prefHeight="36.0" prefWidth="97.0" style="-fx-background-radius: 15px;" text="Продажа" />
+                    <ComboBox fx:id="CBSalesAction" layoutX="16.0" layoutY="24.0" onAction="#CBSalesOnAction" prefWidth="150.0" style="-fx-background-radius: 10px;" />
+                </children></AnchorPane>
+        </content>
+    </Tab>
+    <Tab fx:id="TWarehouse" text="Склад">
+        <content>
+            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                <children>
+                    <TableView fx:id="TVWarehouseTable" editable="true" layoutX="150.0" layoutY="170.0" prefHeight="378.0" prefWidth="449.0">
+                        <columns>
+                            <TableColumn fx:id="TCWarehouseName" prefWidth="221.39999103546143" text="Наименование" />
+                            <TableColumn fx:id="TCWarehouseAmount" minWidth="5.79998779296875" prefWidth="111.39999389648438" text="Закупочная цена" />
+                            <TableColumn fx:id="TCWarehouseQuantity" prefWidth="90.20001220703125" text="Количество" />
+                        </columns>
+                    </TableView>
+                    <Button layoutX="500.0" layoutY="66.0" mnemonicParsing="false" onAction="#onWarehouseActionClicked" prefHeight="36.0" prefWidth="97.0" style="-fx-background-radius: 15px;" text="Выполнить" />
+                    <Button fx:id="BAddWarehouseItem" layoutX="624.0" layoutY="66.0" mnemonicParsing="false" onAction="#onAddNewWarehouseClicked" prefHeight="36.0" prefWidth="97.0" style="-fx-background-radius: 15px;" text="Добавить" />
+                    <ComboBox fx:id="CBWarehouseAction" layoutX="16.0" layoutY="24.0" onAction="#CBWarehouseOnAction" prefWidth="150.0" style="-fx-background-radius: 10px;" />
+                </children></AnchorPane>
+        </content>
+    </Tab>
+      <Tab fx:id="TCharges" text="Расходы">
+          <content>
+              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                  <children>
+                      <TableView fx:id="TVChargeTable" editable="true" layoutX="150.0" layoutY="170.0" prefHeight="378.0" prefWidth="449.0">
+                          <columns>
+                              <TableColumn fx:id="TCChargeName" prefWidth="221.39999103546143" text="Наименование" />
+                              <TableColumn fx:id="TCChargeAmount" minWidth="5.79998779296875" prefWidth="90.19999694824219" text="Стоимость" />
+                              <TableColumn fx:id="TCChargeDate" prefWidth="81.80001831054688" text="Дата" />
+                          </columns>
+                      </TableView>
+                      <Button layoutX="500.0" layoutY="66.0" mnemonicParsing="false" onAction="#onChargeActionClicked" prefHeight="36.0" prefWidth="97.0" style="-fx-background-radius: 15px;" text="Выполнить" />
+                      <Button fx:id="BAddCharge" layoutX="624.0" layoutY="66.0" mnemonicParsing="false" onAction="#onAddNewChargeClicked" prefHeight="36.0" prefWidth="97.0" style="-fx-background-radius: 15px;" text="Добавить" />
+                      <ComboBox fx:id="CBChargeAction" layoutX="16.0" layoutY="24.0" onAction="#CBChargeOnAction" prefWidth="150.0" style="-fx-background-radius: 10px;" />
+                  </children></AnchorPane>
+          </content>
+      </Tab>
+  </tabs>
+</TabPane>
