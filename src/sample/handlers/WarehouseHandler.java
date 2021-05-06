@@ -41,7 +41,7 @@ public class WarehouseHandler {
             ResultSet resultSet = statement.executeQuery("SELECT DISTINCT w.name, w.QUANTITY, w.AMOUNT FROM Sales s\n" +
                     "    INNER JOIN Warehouses w ON s.warehouse_id = w.id\n" +
                     "    WHERE (EXTRACT(MONTH from s.sale_date) = EXTRACT(MONTH from sysdate) - 1) \n" +
-                    "    AND (EXTRACT(YEAR from s.sale_date) = EXTRACT(YEAR from ADD_MONTHS(sysdate, -1)));");
+                    "    AND (EXTRACT(YEAR from s.sale_date) = EXTRACT(YEAR from ADD_MONTHS(sysdate, -1)))");
 
             while (resultSet.next()) {
                 String name = resultSet.getString(1);
@@ -57,8 +57,7 @@ public class WarehouseHandler {
 
     public void addWarehouse(Warehouse warehouse) {
         try {
-            //TODO вынести в процедуру
-            PreparedStatement ps = con.prepareStatement("INSERT INTO Warehouses(Name, Quantity, Amount) VALUES(?, ?, ?); COMMIT;");
+            PreparedStatement ps = con.prepareStatement("CALL ADD_WAREHOUSE(?, ?, ?)");
             ps.setString(1, warehouse.getName());
             ps.setDouble(2, warehouse.getQuantity());
             ps.setDouble(3, warehouse.getAmount());

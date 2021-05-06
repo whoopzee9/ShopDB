@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.controllers.ChargeAdditionController">
+    <children>
+        <Label layoutX="193.0" layoutY="14.0" text="Новый расход">
+            <font>
+                <Font name="System Bold" size="30.0" />
+            </font>
+        </Label>
+        <Button layoutX="462.0" layoutY="329.0" mnemonicParsing="false" onAction="#onDoneClicked" prefHeight="46.0" prefWidth="105.0" style="-fx-background-radius: 20px;" text="Добавить" />
+        <TextField fx:id="TFAmount" layoutX="261.0" layoutY="80.0" prefHeight="26.0" prefWidth="149.0" promptText="цена" style="-fx-background-radius: 10px;" />
+        <TextField fx:id="TFExpenseItem" layoutX="261.0" layoutY="116.0" prefHeight="26.0" prefWidth="149.0" promptText="статья расхода" style="-fx-background-radius: 10px;" />
+        <Label layoutX="192.0" layoutY="85.0" text="Стоимость" />
+        <DatePicker fx:id="DPSaleDate" editable="false" layoutX="261.0" layoutY="212.0" prefHeight="26.0" prefWidth="149.0" promptText="дата" />
+        <ComboBox fx:id="CBExpenseItems" layoutX="261.0" layoutY="117.0" prefWidth="150.0" style="-fx-background-radius: 10px;" />
+        <Label fx:id="LDate" layoutX="180.0" layoutY="216.0" text="Дата расхода" />
+        <Label fx:id="LNewExpense" layoutX="166.0" layoutY="121.0" text="Наименование" />
+        <Spinner fx:id="SpChargeTimeHours" editable="true" layoutX="261.0" layoutY="252.0" prefHeight="26.0" prefWidth="54.0" />
+        <Spinner fx:id="SpChargeTimeMins" editable="true" layoutX="336.0" layoutY="252.0" prefHeight="26.0" prefWidth="54.0" />
+        <Label fx:id="LTime" layoutX="171.0" layoutY="256.0" text="Время расхода" />
+        <Label fx:id="LHour" layoutX="322.0" layoutY="256.0" text="ч." />
+        <Label fx:id="LMin" layoutX="394.0" layoutY="256.0" text="м." />
+        <CheckBox fx:id="CBCurrent" layoutX="261.0" layoutY="182.0" mnemonicParsing="false" text="Текущее время" />
+      <CheckBox fx:id="CBNewExpense" layoutX="262.0" layoutY="157.0" mnemonicParsing="false" text="Новая статья расхода" />
+    </children>
+</AnchorPane>

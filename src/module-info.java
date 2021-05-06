@@ -7,9 +7,8 @@ module ShopDB {
     requires java.base;
 
     opens sample;
-    //opens sample.tables;
+    opens sample.tables;
     opens sample.UI;
     opens sample.controllers;
-    //opens sample.tables;
 
 }

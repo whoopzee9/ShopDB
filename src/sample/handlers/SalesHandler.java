@@ -34,17 +34,21 @@ public class SalesHandler {
         return list;
     }
 
-    public ResultSet getSalesAmountAndSum() {
+    public ArrayList<Double> getSalesAmountAndSum() {
+        ArrayList<Double> list = new ArrayList<>();
         try {
             Statement statement = con.createStatement();
 
-            ResultSet resultSet = statement.executeQuery("SELECT SUM(s.quantity) as quantity, SUM(s.amount) as total_amount FROM Sales s;");
+            ResultSet resultSet = statement.executeQuery("SELECT SUM(s.quantity) as quantity, SUM(s.amount) as total_amount FROM Sales s");
 
-            return resultSet;
+            resultSet.next();
+            list.add(resultSet.getDouble(1));
+            list.add(resultSet.getDouble(2));
         } catch (SQLException e) {
             showAlert();
+            e.printStackTrace();
         }
-        return null;
+        return list;
     }
 
     public double getMonthlyProfit() {
@@ -54,13 +58,13 @@ public class SalesHandler {
             ResultSet resultSet = statement.executeQuery("SELECT SUM((s.amount - w.amount) * s.quantity) as profit FROM Sales s\n" +
                     "    INNER JOIN Warehouses w ON w.id = s.warehouse_id\n" +
                     "    WHERE (EXTRACT(MONTH from s.sale_date) = EXTRACT(MONTH from sysdate) - 1) \n" +
-                    "    AND (EXTRACT(YEAR from s.sale_date) = EXTRACT(YEAR from ADD_MONTHS(sysdate, -1)));\n");
+                    "    AND (EXTRACT(YEAR from s.sale_date) = EXTRACT(YEAR from ADD_MONTHS(sysdate, -1)))\n");
 
             resultSet.next();
-
             return resultSet.getDouble(1);
         } catch (SQLException e) {
             showAlert();
+            e.printStackTrace();
         }
         return 0;
     }
@@ -75,7 +79,7 @@ public class SalesHandler {
                     "    INNER JOIN Warehouses w ON w.id = s.warehouse_id\n" +
                     "    GROUP BY w.name\n" +
                     "    ORDER BY profit DESC\n" +
-                    ") WHERE ROWNUM <= 5;");
+                    ") WHERE ROWNUM <= 5");
 
             while (resultSet.next()) {
                 String name = resultSet.getString(1);
@@ -84,6 +88,7 @@ public class SalesHandler {
             }
         } catch (SQLException e) {
             showAlert();
+            e.printStackTrace();
         }
         return list;
     }
@@ -95,7 +100,7 @@ public class SalesHandler {
 
             ResultSet resultSet = statement.executeQuery("SELECT w.name, AVG(s.amount) FROM Sales s\n" +
                     "        INNER JOIN Warehouses w ON w.id = s.warehouse_id\n" +
-                    "        GROUP BY w.name;");
+                    "        GROUP BY w.name");
 
             while (resultSet.next()) {
                 String name = resultSet.getString(1);
@@ -105,6 +110,7 @@ public class SalesHandler {
 
         } catch (SQLException e) {
             showAlert();
+            e.printStackTrace();
         }
         return list;
     }
@@ -117,7 +123,7 @@ public class SalesHandler {
                     "            WHERE w.name = ?) item1Res\n" +
                     "        INNER JOIN Sales s ON s.sale_date = item1Res.sale_date\n" +
                     "        INNER JOIN warehouses w ON s.warehouse_id = w.id\n" +
-                    "        WHERE w.name = ?;");
+                    "        WHERE w.name = ?");
             ps.setString(1, item1);
             ps.setString(2, item2);
 
@@ -130,6 +136,7 @@ public class SalesHandler {
 
         } catch (SQLException e) {
             showAlert();
+            e.printStackTrace();
         }
         return list;
     }
@@ -137,7 +144,7 @@ public class SalesHandler {
     public ArrayList<Double> getIncomeAndExpenses(Timestamp date1, Timestamp date2) {
         ArrayList<Double> list = new ArrayList<>();
         try {
-            CallableStatement cs = con.prepareCall("EXECUTE incomeAndExpenses(?, ?, ?, ?);");
+            CallableStatement cs = con.prepareCall("EXECUTE incomeAndExpenses(?, ?, ?, ?)");
             cs.setTimestamp(1, date1);
             cs.setTimestamp(2, date2);
             cs.registerOutParameter(3, Types.NUMERIC);
@@ -149,35 +156,37 @@ public class SalesHandler {
             return list;
         } catch (SQLException e) {
             showAlert();
+            e.printStackTrace();
         }
         return list;
     }
 
     public double getExpectedIncome() {
         try {
-            CallableStatement cs = con.prepareCall("EXECUTE estimatedProfit(?);");
+            CallableStatement cs = con.prepareCall("CALL estimatedProfit(?)");
             cs.registerOutParameter(1, Types.NUMERIC);
             cs.execute();
 
             return cs.getDouble(1);
         } catch (SQLException e) {
             showAlert();
+            e.printStackTrace();
         }
         return 0;
     }
 
     public void addSale(Sale sale) {
-        //TODO загрузить изменения процедуры в базу
         try {
-            PreparedStatement ps = con.prepareStatement("EXECUTE add_sale(?,?,?,?);");
+            PreparedStatement ps = con.prepareStatement("CALL ADD_SALE(?, ?, ?, ?)");
             ps.setString(1, sale.getName());
             ps.setDouble(2, sale.getQuantity());
             ps.setDouble(3, sale.getAmount());
             ps.setTimestamp(4, sale.getSaleDate());
 
             ps.executeUpdate();
-        } catch (SQLException throwables) {
+        } catch (SQLException e) {
             showAlert();
+            e.printStackTrace();
         }
     }
 

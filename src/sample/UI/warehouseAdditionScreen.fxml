@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane prefHeight="300.0" prefWidth="480.0" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.controllers.WarehouseAdditionController">
+    <children>
+        <Label layoutX="143.0" layoutY="14.0" text="Новый товар">
+            <font>
+                <Font name="System Bold" size="30.0" />
+            </font>
+        </Label>
+        <Button layoutX="358.0" layoutY="233.0" mnemonicParsing="false" onAction="#onDoneClicked" prefHeight="46.0" prefWidth="105.0" style="-fx-background-radius: 20px;" text="Добавить" />
+        <TextField fx:id="TFAmount" layoutX="205.0" layoutY="158.0" prefHeight="26.0" prefWidth="149.0" promptText="цена" style="-fx-background-radius: 10px;" />
+        <Label layoutX="163.0" layoutY="162.0" text="Цена" />
+        <TextField fx:id="TFQuantity" layoutX="206.0" layoutY="121.0" promptText="количество" style="-fx-background-radius: 10px;" />
+        <Label layoutX="131.0" layoutY="125.0" text="Количество" />
+        <TextField fx:id="TFName" layoutX="206.0" layoutY="81.0" promptText="название" style="-fx-background-radius: 10px;" />
+        <Label layoutX="143.0" layoutY="85.0" text="Название" />
+    </children>
+</AnchorPane>

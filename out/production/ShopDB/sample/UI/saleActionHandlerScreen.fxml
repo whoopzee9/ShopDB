@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane prefHeight="350.0" prefWidth="450.0" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.controllers.SaleActionHandlerController">
+    <ListView fx:id="LVListView" layoutX="125.0" layoutY="107.0" prefHeight="200.0" prefWidth="200.0" />
+    <Label fx:id="LTitle" layoutX="129.0" layoutY="26.0" text="Результат выборки">
+        <font>
+          <Font size="22.0" />
+        </font>
+    </Label>
+    <Label fx:id="LText1" alignment="CENTER" layoutY="79.0" prefHeight="27.0" prefWidth="450.0" text="Ответ 1:" textAlignment="CENTER">
+        <font>
+          <Font size="18.0" />
+        </font>
+    </Label>
+    <Label fx:id="LText2" alignment="CENTER" layoutY="120.0" prefHeight="27.0" prefWidth="450.0" text="Ответ 2" textAlignment="CENTER">
+        <font>
+          <Font size="18.0" />
+        </font>
+    </Label>
+</AnchorPane>
