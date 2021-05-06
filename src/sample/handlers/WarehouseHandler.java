@@ -19,13 +19,14 @@ public class WarehouseHandler {
         try {
             Statement statement = con.createStatement();
 
-            ResultSet resultSet = statement.executeQuery("SELECT w.name, w.QUANTITY, w.AMOUNT FROM Warehouses w");
+            ResultSet resultSet = statement.executeQuery("SELECT w.id, w.name, w.QUANTITY, w.AMOUNT FROM Warehouses w");
 
             while (resultSet.next()) {
-                String name = resultSet.getString(1);
-                Double quantity = resultSet.getDouble(2);
-                Double amount = resultSet.getDouble(3);
-                list.add(new Warehouse(name, quantity, amount));
+                int id = resultSet.getInt(1);
+                String name = resultSet.getString(2);
+                Double quantity = resultSet.getDouble(3);
+                Double amount = resultSet.getDouble(4);
+                list.add(new Warehouse(id, name, quantity, amount));
             }
         } catch (SQLException e) {
             showAlert();
@@ -38,16 +39,17 @@ public class WarehouseHandler {
         try {
             Statement statement = con.createStatement();
 
-            ResultSet resultSet = statement.executeQuery("SELECT DISTINCT w.name, w.QUANTITY, w.AMOUNT FROM Sales s\n" +
+            ResultSet resultSet = statement.executeQuery("SELECT DISTINCT w.id, w.name, w.QUANTITY, w.AMOUNT FROM Sales s\n" +
                     "    INNER JOIN Warehouses w ON s.warehouse_id = w.id\n" +
                     "    WHERE (EXTRACT(MONTH from s.sale_date) = EXTRACT(MONTH from sysdate) - 1) \n" +
                     "    AND (EXTRACT(YEAR from s.sale_date) = EXTRACT(YEAR from ADD_MONTHS(sysdate, -1)))");
 
             while (resultSet.next()) {
-                String name = resultSet.getString(1);
-                Double quantity = resultSet.getDouble(2);
-                Double amount = resultSet.getDouble(3);
-                list.add(new Warehouse(name, quantity, amount));
+                int id = resultSet.getInt(1);
+                String name = resultSet.getString(2);
+                Double quantity = resultSet.getDouble(3);
+                Double amount = resultSet.getDouble(4);
+                list.add(new Warehouse(id, name, quantity, amount));
             }
         } catch (SQLException e) {
             showAlert();
@@ -61,6 +63,20 @@ public class WarehouseHandler {
             ps.setString(1, warehouse.getName());
             ps.setDouble(2, warehouse.getQuantity());
             ps.setDouble(3, warehouse.getAmount());
+
+            ps.executeUpdate();
+        } catch (SQLException throwables) {
+            showAlert();
+        }
+    }
+
+    public void updateWarehouse(Warehouse warehouse) {
+        try {
+            PreparedStatement ps = con.prepareStatement("CALL UPDATE_WAREHOUSE(?, ?, ?, ?)");
+            ps.setInt(1, warehouse.getId());
+            ps.setString(2, warehouse.getName());
+            ps.setDouble(3, warehouse.getAmount());
+            ps.setDouble(4, warehouse.getQuantity());
 
             ps.executeUpdate();
         } catch (SQLException throwables) {

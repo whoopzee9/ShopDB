@@ -50,7 +50,7 @@ public class WarehouseAdditionController {
             return;
         }
 
-        Warehouse warehouse = new Warehouse(name, quantity, amount);
+        Warehouse warehouse = new Warehouse(0, name, quantity, amount);
         warehouseHandler.addWarehouse(warehouse);
 
         Stage stage = (Stage) TFAmount.getScene().getWindow();

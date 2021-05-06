@@ -9,9 +9,11 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import javafx.util.StringConverter;
 import sample.handlers.ChargesHandler;
 import sample.handlers.SalesHandler;
 import sample.handlers.WarehouseHandler;
@@ -114,6 +116,34 @@ public class MainScreenController implements PropertyChangeListener {
         TCChargeDate.setCellValueFactory(new PropertyValueFactory<>("chargeDate"));
 
         TCExpenseItemName.setCellValueFactory(new PropertyValueFactory<>("name"));
+
+        StringConverter<Double> doubleStringConverter = new StringConverter<Double>() {
+            @Override
+            public String toString(Double object) {
+                if (object == null) {
+                    return null;
+                }
+                return object.toString();
+            }
+
+            @Override
+            public Double fromString(String string) {
+                Double value;
+                try {
+                    value = Double.parseDouble(string);
+                } catch (NumberFormatException e) {
+                    showAlert("Неправильный ввод!", "Неправильное число!");
+                    return null;
+                }
+                return value;
+            }
+        };
+
+        TCWarehouseName.setCellFactory(TextFieldTableCell.forTableColumn());
+        TCWarehouseAmount.setCellFactory(param -> new TextFieldTableCell<>(doubleStringConverter));
+        TCWarehouseQuantity.setCellFactory(param -> new TextFieldTableCell<>(doubleStringConverter));
+
+        TCExpenseItemName.setCellFactory(TextFieldTableCell.forTableColumn());
 
         LLabel1.setVisible(false);
         LLabel2.setVisible(false);
@@ -456,6 +486,53 @@ public class MainScreenController implements PropertyChangeListener {
 
     }
 
+    public void onWarehouseNameEditCommit(TableColumn.CellEditEvent<Warehouse, String> event) {
+        TablePosition<Warehouse, String> pos = event.getTablePosition();
+
+        String name = event.getNewValue();
+        int row = pos.getRow();
+        Warehouse warehouse = event.getTableView().getItems().get(row);
+        if (name == null) {
+            event.getTableView().getItems().set(row, warehouse);
+            return;
+        }
+        warehouse.setName(name);
+
+        warehouseHandler.updateWarehouse(warehouse);
+    }
+
+    public void onWarehouseAmountEditCommit(TableColumn.CellEditEvent<Warehouse, Double> event) {
+        TablePosition<Warehouse, Double> pos = event.getTablePosition();
+
+        Double amount = event.getNewValue();
+        int row = pos.getRow();
+        Warehouse warehouse = event.getTableView().getItems().get(row);
+        if (amount == null) {
+            event.getTableView().getItems().set(row, warehouse);
+            return;
+        }
+        warehouse.setAmount(amount);
+
+        warehouseHandler.updateWarehouse(warehouse);
+    }
+
+    public void onWarehouseQuantityEditCommit(TableColumn.CellEditEvent<Warehouse, Double> event) {
+        TablePosition<Warehouse, Double> pos = event.getTablePosition();
+
+        Double quantity = event.getNewValue();
+        int row = pos.getRow();
+        Warehouse warehouse = event.getTableView().getItems().get(row);
+        if (quantity == null) {
+            event.getTableView().getItems().set(row, warehouse);
+            return;
+        }
+        warehouse.setQuantity(quantity);
+
+        warehouseHandler.updateWarehouse(warehouse);
+    }
+
+
+
     //Charge tab impl-------------------------------------------------------
 
     public void onChargeActionClicked(ActionEvent event) {
@@ -562,6 +639,24 @@ public class MainScreenController implements PropertyChangeListener {
         } catch (SQLException throwables) {
             showAlert("Ошибка удаления!", "Невозможно удалить!");
         }
+    }
+
+    public void onExpenseItemEditCommit(TableColumn.CellEditEvent<ExpenseItem, String> event) {
+        TablePosition<ExpenseItem, String> pos = event.getTablePosition();
+
+        String newValue = event.getNewValue();
+        int row = pos.getRow();
+        ExpenseItem expenseItem = event.getTableView().getItems().get(row);
+        if (newValue == null) {
+            event.getTableView().getItems().set(row, expenseItem);
+            return;
+        }
+        expenseItem.setName(newValue);
+
+        chargesHandler.updateExpenseItem(expenseItem);
+
+        ObservableList<Charge> list = FXCollections.observableArrayList(chargesHandler.getCharges());
+        TVChargeTable.setItems(list);
     }
 
     public void showAlert(String header, String content) {

@@ -35,9 +35,9 @@
                 <children>
                     <TableView fx:id="TVWarehouseTable" editable="true" layoutX="150.0" layoutY="170.0" prefHeight="378.0" prefWidth="449.0">
                         <columns>
-                            <TableColumn fx:id="TCWarehouseName" prefWidth="221.39999103546143" text="Наименование" />
-                            <TableColumn fx:id="TCWarehouseAmount" minWidth="5.79998779296875" prefWidth="111.39999389648438" text="Закупочная цена" />
-                            <TableColumn fx:id="TCWarehouseQuantity" prefWidth="90.20001220703125" text="Количество" />
+                            <TableColumn fx:id="TCWarehouseName" onEditCommit="#onWarehouseNameEditCommit" prefWidth="221.39999103546143" text="Наименование" />
+                            <TableColumn fx:id="TCWarehouseAmount" onEditCommit="#onWarehouseAmountEditCommit" minWidth="5.79998779296875" prefWidth="111.39999389648438" text="Закупочная цена" />
+                            <TableColumn fx:id="TCWarehouseQuantity" onEditCommit="#onWarehouseQuantityEditCommit" prefWidth="90.20001220703125" text="Количество" />
                         </columns>
                     </TableView>
                     <Button layoutX="500.0" layoutY="66.0" mnemonicParsing="false" onAction="#onWarehouseActionClicked" prefHeight="36.0" prefWidth="97.0" style="-fx-background-radius: 15px;" text="Выполнить" />
@@ -60,7 +60,7 @@
 
                       <TableView fx:id="TVExpenseItemsTable" editable="true" layoutX="519.0" layoutY="170.0" prefHeight="378.0" prefWidth="196.0">
                           <columns>
-                              <TableColumn fx:id="TCExpenseItemName" prefWidth="194.60000610351562" text="Наименование" />
+                              <TableColumn fx:id="TCExpenseItemName" onEditCommit="#onExpenseItemEditCommit" prefWidth="194.60000610351562" text="Наименование" />
                           </columns>
                       </TableView>
                       <Button layoutX="500.0" layoutY="66.0" mnemonicParsing="false" onAction="#onChargeActionClicked" prefHeight="36.0" prefWidth="97.0" style="-fx-background-radius: 15px;" text="Выполнить" />

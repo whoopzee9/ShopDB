@@ -1,11 +1,13 @@
 package sample.tables;
 
 public class Warehouse {
+    private int id;
     private String name;
     private Double quantity;
     private Double amount;
 
-    public Warehouse(String name, Double quantity, Double amount) {
+    public Warehouse(int id, String name, Double quantity, Double amount) {
+        this.id = id;
         this.name = name;
         this.quantity = quantity;
         this.amount = amount;
@@ -33,6 +35,14 @@ public class Warehouse {
 
     public void setAmount(Double amount) {
         this.amount = amount;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     @Override

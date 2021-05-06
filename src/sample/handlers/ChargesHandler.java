@@ -184,6 +184,18 @@ public class ChargesHandler {
         ps.executeUpdate();
     }
 
+    public void updateExpenseItem(ExpenseItem expenseItem) {
+        try {
+            PreparedStatement ps = con.prepareStatement("CALL UPDATE_EXPENSE_ITEM(?, ?)");
+            ps.setInt(1, expenseItem.getId());
+            ps.setString(2, expenseItem.getName());
+            ps.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+            showAlert();
+        }
+    }
+
     private void showAlert() {
         Alert alert = new Alert(Alert.AlertType.WARNING);
         alert.setTitle("Warning");
