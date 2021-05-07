@@ -13,7 +13,7 @@
         </Label>
         <Button layoutX="358.0" layoutY="233.0" mnemonicParsing="false" onAction="#onDoneClicked" prefHeight="46.0" prefWidth="105.0" style="-fx-background-radius: 20px;" text="Добавить" />
         <TextField fx:id="TFAmount" layoutX="205.0" layoutY="158.0" prefHeight="26.0" prefWidth="149.0" promptText="цена" style="-fx-background-radius: 10px;" />
-        <Label layoutX="163.0" layoutY="162.0" text="Цена" />
+        <Label layoutX="101.0" layoutY="162.0" text="Закупочная цена" />
         <TextField fx:id="TFQuantity" layoutX="206.0" layoutY="121.0" promptText="количество" style="-fx-background-radius: 10px;" />
         <Label layoutX="131.0" layoutY="125.0" text="Количество" />
         <TextField fx:id="TFName" layoutX="206.0" layoutY="81.0" promptText="название" style="-fx-background-radius: 10px;" />

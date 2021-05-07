@@ -18,15 +18,16 @@ public class SalesHandler {
         try {
             Statement statement = con.createStatement();
 
-            ResultSet resultSet = statement.executeQuery("SELECT s.amount, s.quantity, s.sale_date, w.name FROM Sales s " +
+            ResultSet resultSet = statement.executeQuery("SELECT s.id, s.amount, s.quantity, s.sale_date, w.name FROM Sales s " +
                     "INNER JOIN Warehouses w ON w.id = s.warehouse_id ");
 
             while (resultSet.next()) {
-                Double amount = resultSet.getDouble(1);
-                Double quantity = resultSet.getDouble(2);
-                Timestamp date = resultSet.getTimestamp(3);
-                String name = resultSet.getString(4);
-                list.add(new Sale(amount, quantity, date, name));
+                int id = resultSet.getInt(1);
+                Double amount = resultSet.getDouble(2);
+                Double quantity = resultSet.getDouble(3);
+                Timestamp date = resultSet.getTimestamp(4);
+                String name = resultSet.getString(5);
+                list.add(new Sale(id, amount, quantity, date, name));
             }
         } catch (SQLException e) {
             showAlert();
@@ -84,7 +85,7 @@ public class SalesHandler {
             while (resultSet.next()) {
                 String name = resultSet.getString(1);
                 Double amount = resultSet.getDouble(2);
-                list.add(new Sale(amount, null, null, name));
+                list.add(new Sale(-1, amount, null, null, name));
             }
         } catch (SQLException e) {
             showAlert();
@@ -105,7 +106,7 @@ public class SalesHandler {
             while (resultSet.next()) {
                 String name = resultSet.getString(1);
                 Double amount = resultSet.getDouble(2);
-                list.add(new Sale(amount, null, null, name));
+                list.add(new Sale(-1, amount, null, null, name));
             }
 
         } catch (SQLException e) {
@@ -144,7 +145,7 @@ public class SalesHandler {
     public ArrayList<Double> getIncomeAndExpenses(Timestamp date1, Timestamp date2) {
         ArrayList<Double> list = new ArrayList<>();
         try {
-            CallableStatement cs = con.prepareCall("EXECUTE incomeAndExpenses(?, ?, ?, ?)");
+            CallableStatement cs = con.prepareCall("CALL incomeAndExpenses(?, ?, ?, ?)");
             cs.setTimestamp(1, date1);
             cs.setTimestamp(2, date2);
             cs.registerOutParameter(3, Types.NUMERIC);
@@ -182,6 +183,22 @@ public class SalesHandler {
             ps.setDouble(2, sale.getQuantity());
             ps.setDouble(3, sale.getAmount());
             ps.setTimestamp(4, sale.getSaleDate());
+
+            ps.executeUpdate();
+        } catch (SQLException e) {
+            showAlert();
+            e.printStackTrace();
+        }
+    }
+
+    public void deleteSale(Sale sale) {
+        try {
+            if (sale.getId() <= 0) {
+                showAlert();
+                return;
+            }
+            PreparedStatement ps = con.prepareStatement("CALL DELETE_SALE(?)");
+            ps.setInt(1, sale.getId());
 
             ps.executeUpdate();
         } catch (SQLException e) {

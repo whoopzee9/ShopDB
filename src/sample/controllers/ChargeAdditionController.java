@@ -18,6 +18,7 @@ import java.sql.Timestamp;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 
 public class ChargeAdditionController {
@@ -184,7 +185,13 @@ public class ChargeAdditionController {
                 return;
             }
         } else {
-            timestamp = new Timestamp(System.currentTimeMillis());
+            Date date = new Date(System.currentTimeMillis());
+            Calendar cal = Calendar.getInstance();
+            cal.clear();
+            cal.setTime( date );
+            cal.set(Calendar.SECOND, 0);
+            cal.set(Calendar.MILLISECOND, 0);
+            timestamp = new Timestamp(cal.getTime().getTime());
         }
 
         String name;

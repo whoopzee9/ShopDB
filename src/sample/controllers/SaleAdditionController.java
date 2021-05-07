@@ -20,6 +20,7 @@ import java.sql.Timestamp;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 
 public class SaleAdditionController {
@@ -174,10 +175,16 @@ public class SaleAdditionController {
                 return;
             }
         } else {
-            timestamp = new Timestamp(System.currentTimeMillis());
+            Date date = new Date(System.currentTimeMillis());
+            Calendar cal = Calendar.getInstance();
+            cal.clear();
+            cal.setTime( date );
+            cal.set(Calendar.SECOND, 0);
+            cal.set(Calendar.MILLISECOND, 0);
+            timestamp = new Timestamp(cal.getTime().getTime());
         }
 
-        Sale sale = new Sale(amount, quantity, timestamp, warehouse.getName());
+        Sale sale = new Sale(0, amount, quantity, timestamp, warehouse.getName());
 
         salesHandler.addSale(sale);
 

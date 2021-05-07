@@ -11,7 +11,7 @@
           <Font size="22.0" />
         </font>
     </Label>
-    <Label fx:id="LText1" alignment="CENTER" layoutY="79.0" prefHeight="27.0" prefWidth="450.0" text="Ответ 1:" textAlignment="CENTER">
+    <Label fx:id="LText1" alignment="CENTER" layoutY="79.0" prefHeight="27.0" prefWidth="450.0" text="Ответ 1:" textAlignment="CENTER" wrapText="true">
         <font>
           <Font size="18.0" />
         </font>

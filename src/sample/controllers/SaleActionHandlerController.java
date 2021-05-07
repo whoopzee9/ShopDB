@@ -57,7 +57,7 @@ public class SaleActionHandlerController {
                 LText1.setText(text1);
             }
             case EXPECTED_PROFIT -> {
-                String text1 = "Ожидаемый доход на ближайший месяц: " + num;
+                String text1 = "Ожидаемый доход: " + String.format("%.2f", num);
                 LVListView.setVisible(false);
                 LText2.setVisible(false);
                 LText1.setText(text1);

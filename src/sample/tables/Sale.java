@@ -3,16 +3,26 @@ package sample.tables;
 import java.sql.Timestamp;
 
 public class Sale {
+    private int id;
     private Double amount;
     private Double quantity;
     private Timestamp saleDate;
     private String name;
 
-    public Sale(Double amount, Double quantity, Timestamp saleDate, String name) {
+    public Sale(int id, Double amount, Double quantity, Timestamp saleDate, String name) {
+        this.id = id;
         this.amount = amount;
         this.quantity = quantity;
         this.saleDate = saleDate;
         this.name = name;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public Double getAmount() {

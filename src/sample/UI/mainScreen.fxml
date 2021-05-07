@@ -3,9 +3,9 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<TabPane fx:id="TPTabPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="750.0" tabClosingPolicy="UNAVAILABLE" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.controllers.MainScreenController">
+<TabPane fx:id="TPTabPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="750.0" style="-fx-background-color: linear-gradient(to top right, #EECFBA, #C5DDE8)" tabClosingPolicy="UNAVAILABLE" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.controllers.MainScreenController">
   <tabs>
-    <Tab fx:id="TSales" text="Продажи">
+    <Tab fx:id="TSales" style="-fx-font-size: 16;" text="Продажи">
         <content>
             <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                 <children>
@@ -22,21 +22,22 @@
                     <ComboBox fx:id="CBSalesAction" layoutX="16.0" layoutY="24.0" onAction="#CBSalesOnAction" prefWidth="150.0" style="-fx-background-radius: 10px;" />
                   <ComboBox fx:id="CBItem1" layoutX="278.0" layoutY="24.0" onMouseClicked="#CBItem1OnMouseClicked" prefWidth="150.0" style="-fx-background-radius: 10px;" />
                   <ComboBox fx:id="CBItem2" layoutX="278.0" layoutY="71.0" onMouseClicked="#CBItem2OnMouseClicked" prefWidth="150.0" style="-fx-background-radius: 10px;" />
-                  <Label fx:id="LLabel1" layoutX="216.0" layoutY="28.0" prefWidth="150.0" text="Label" />
+                    <Button layoutX="499.0" layoutY="113.0" mnemonicParsing="false" onAction="#onDeleteSaleClicked" visible="false" prefHeight="36.0" prefWidth="97.0" style="-fx-background-radius: 15px;" text="Удалить" />
+                    <Label fx:id="LLabel1" layoutX="216.0" layoutY="28.0" prefWidth="150.0" text="Label" />
                   <Label fx:id="LLabel2" layoutX="216.0" layoutY="76.0" prefWidth="150.0" text="Label" />
                   <DatePicker fx:id="DPDate1" layoutX="278.0" layoutY="23.0" prefHeight="26.0" prefWidth="150.0" />
                   <DatePicker fx:id="DPDate2" layoutX="278.0" layoutY="70.0" prefHeight="26.0" prefWidth="150.0" />
                 </children></AnchorPane>
         </content>
     </Tab>
-    <Tab fx:id="TWarehouse" text="Склад">
+    <Tab fx:id="TWarehouse" style="-fx-font-size: 16;" text="Склад">
         <content>
             <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                 <children>
                     <TableView fx:id="TVWarehouseTable" editable="true" layoutX="150.0" layoutY="170.0" prefHeight="378.0" prefWidth="449.0">
                         <columns>
                             <TableColumn fx:id="TCWarehouseName" onEditCommit="#onWarehouseNameEditCommit" prefWidth="221.39999103546143" text="Наименование" />
-                            <TableColumn fx:id="TCWarehouseAmount" onEditCommit="#onWarehouseAmountEditCommit" minWidth="5.79998779296875" prefWidth="111.39999389648438" text="Закупочная цена" />
+                            <TableColumn fx:id="TCWarehouseAmount" minWidth="5.79998779296875" onEditCommit="#onWarehouseAmountEditCommit" prefWidth="111.39999389648438" text="Закупочная цена" />
                             <TableColumn fx:id="TCWarehouseQuantity" onEditCommit="#onWarehouseQuantityEditCommit" prefWidth="90.20001220703125" text="Количество" />
                         </columns>
                     </TableView>
@@ -46,7 +47,7 @@
                 </children></AnchorPane>
         </content>
     </Tab>
-      <Tab fx:id="TCharges" text="Расходы">
+      <Tab fx:id="TCharges" style="-fx-font-size: 16;" text="Расходы">
           <content>
               <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                   <children>

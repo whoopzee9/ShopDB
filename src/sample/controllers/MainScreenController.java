@@ -402,6 +402,17 @@ public class MainScreenController implements PropertyChangeListener {
         }
     }
 
+    public void onDeleteSaleClicked(ActionEvent event) {
+        int index = TVSalesTable.getSelectionModel().getFocusedIndex();
+        if (index == 0 && !TVSalesTable.getSelectionModel().isSelected(0)) {
+            showAlert("Неправильный ввод!", "Ничего не выбрано!");
+            return;
+        }
+        Sale sale = TVSalesTable.getItems().get(index);
+        salesHandler.deleteSale(sale);
+        TVSalesTable.getItems().remove(index);
+    }
+
     public void CBSalesOnAction(ActionEvent event) {
         int actionIndex = CBSalesAction.getSelectionModel().getSelectedIndex();
         LLabel1.setVisible(false);
@@ -636,6 +647,9 @@ public class MainScreenController implements PropertyChangeListener {
         try {
             chargesHandler.deleteExpenseItem(expenseItem);
             TVExpenseItemsTable.getItems().remove(index);
+
+            ObservableList<Charge> list = FXCollections.observableArrayList(chargesHandler.getCharges());
+            TVChargeTable.setItems(list);
         } catch (SQLException throwables) {
             showAlert("Ошибка удаления!", "Невозможно удалить!");
         }
